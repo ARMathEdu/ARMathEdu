@@ -64,12 +64,15 @@ document.addEventListener('DOMContentLoaded',() => {
         //Multiple Detection을 사용할 때 필요할 수 있음
         Anchor.onTargetFound = () => {
             console.log("on target found");
+            gltf.scene.scale.set(0.5, 0.5, 0.5);
             audio.play();
         }
 
         Anchor.onTargetLost = () => {
             console.log("on target lost");
             audio.pause();
+            gltf.scene.scale.set(0, 0, 0);
+
         }
 
 

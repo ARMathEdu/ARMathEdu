@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import {MindARThree} from 'mindar-image-three';
-import {loadGLTF} from '../../applications/libs/loader.js';
+import {loadGLTF, loadAudio} from '../../applications/libs/loader.js';
 
 document.addEventListener('DOMContentLoaded',() => {
     const start = async () => {
@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded',() => {
         gltf1.scene.position.set(0, -0.2, 0);
         const gltf1Anchor = mindarThree.addAnchor(0);
         gltf1Anchor.group.add(gltf1.scene);
-
 
         const gltf2 = await loadGLTF('../3dModels/gltf_france/scene.gltf');
         gltf2.scene.scale.set(0.3, 0.3, 0.3);
@@ -63,6 +62,73 @@ document.addEventListener('DOMContentLoaded',() => {
         action4.play();
 
         const clock = new THREE.Clock();
+
+        const listner = new THREE.AudioListener();
+        camera.add(listner);
+
+        const audio1 = new THREE.Audio(listner);
+        const audioClip1 = await loadAudio("./Avocado.m4a");
+        audio1.setBuffer(audioClip1)
+
+        const audio2 = new THREE.Audio(listner);
+        const audioClip2 = await loadAudio("./France.m4a");
+        audio2.setBuffer(audioClip2)
+
+        const audio3 = new THREE.Audio(listner);
+        const audioClip3 = await loadAudio("./Groot.m4a");
+        audio3.setBuffer(audioClip3)
+
+        const audio4 = new THREE.Audio(listner);
+        const audioClip4 = await loadAudio("./Korok.m4a");
+        audio4.setBuffer(audioClip4)
+
+
+        document.body.addEventListener('click', (e) => {
+            // normalize to -1 to 1
+            const mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            const mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+            const mouse = new THREE.Vector2(mouseX, mouseY);
+            const raycaster = new THREE.Raycaster();
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(scene.children, true);
+            console.log(intersects.length)
+            if (intersects.length > 0) {
+                let o = intersects[0].object; 
+                while (o.parent && !o.userData.clickable) {
+                o = o.parent;
+                }
+       
+                console.log(o === gltf1.scene)
+                console.log(o === gltf2.scene)
+            
+                if (o.userData.clickable) {
+                
+                console.log(o === raccoon.scene)
+                console.log(o === bear.scene)
+                
+                    if (o === raccoon.scene) {
+                        sound.play();
+                    }
+                }
+                }
+          });
+
+        gltf1Anchor.onTargetLost = () => {
+            gltf1.scene.scale.set(0,0,0)
+        }
+        gltf1Anchor.onTargetFound = () =>{
+            gltf1.scene.scale.set(0.04,0.04,0.04)
+        }
+        gltf2Anchor.onTargetLost = () => {
+            gltf2.scene.scale.set(0,0,0)
+        }
+        gltf3Anchor.onTargetLost = () => {
+            gltf3.scene.scale.set(0,0,0)
+        }
+        gltf4Anchor.onTargetLost = () => {
+            gltf4.scene.scale.set(0,0,0)
+        }
+
 
         // start AR
         await mindarThree.start();
