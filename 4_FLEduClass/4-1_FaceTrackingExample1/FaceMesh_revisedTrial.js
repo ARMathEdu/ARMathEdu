@@ -45,3 +45,16 @@ stopButton.addEventListener("click", () => {
     mindarThree.stop();
     mindarThree.renderer.setAnimationLoop(null);
 });
+const changeFilter = document.querySelector("#changeButton")
+var numofClick = 0;
+changeFilter.addEventListener("click",()=>{
+    numofClick++
+    console.log(numofClick)
+    if (numofClick%3===1){
+        faceMesh.material.map = texture2;
+    } else if (numofClick%3===2){
+        faceMesh.material.map = texture3;
+    } else{
+        faceMesh.material.map = texture;
+    }
+});
