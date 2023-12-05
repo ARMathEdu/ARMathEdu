@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import {MindARThree} from 'mindar-image-three';
-import {loadGLTF} from '../applications/libs/loader.js';
+import {loadGLTF} from '../../applications/libs/loader.js';
 
 document.addEventListener('DOMContentLoaded',() => {
     const start = async () => {
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded',() => {
         const gltf1 = await loadGLTF('./3dModels/gltf_mario3/scene.gltf');
         gltf1.scene.scale.set(1, 1, 1);
         gltf1.scene.rotation.set(Math.PI/2,0,0);
-        gltf1.scene.position.set(-0.1, 0.2, -0.5);
+        gltf1.scene.position.set(0, 0, -0.5);
         const gltf1Anchor = mindarThree.addAnchor(0);
         gltf1Anchor.group.add(gltf1.scene);
 
