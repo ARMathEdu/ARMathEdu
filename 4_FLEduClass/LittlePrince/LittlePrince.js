@@ -17,9 +17,9 @@ document.addEventListener('DOMContentLoaded',() => {
         
         //load Multiple Models
         const gltf1 = await loadGLTF('./3d_models/model_1.gltf');
-        gltf1.scene.scale.set(0.08, 0.08, 0.08);
+        gltf1.scene.scale.set(0.055, 0.055, 0.055);
         gltf1.scene.rotation.set(Math.PI/2,0,0);
-        gltf1.scene.position.set(-0.4, -0.2, -0.1);
+        gltf1.scene.position.set(-0.4, 1, -0.3);
         const gltf1Anchor = mindarThree.addAnchor(0);
         gltf1Anchor.group.add(gltf1.scene);
 
@@ -32,9 +32,9 @@ document.addEventListener('DOMContentLoaded',() => {
         gltf2Anchor.group.add(gltf2.scene);
 
         const gltf3 = await loadGLTF('./3d_models/model_3_new.gltf');
-        gltf3.scene.scale.set(0.01, 0.01, 0.01);
+        gltf3.scene.scale.set(0.005, 0.005, 0.005);
         gltf3.scene.rotation.set(Math.PI/2,0,0);
-        gltf3.scene.position.set(0, 0, 0.7);
+        gltf3.scene.position.set(0, -0.5, 0.7);
         const gltf3Anchor = mindarThree.addAnchor(2);
         gltf3Anchor.group.add(gltf3.scene);
 
